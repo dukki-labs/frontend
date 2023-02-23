@@ -1,9 +1,9 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Inter } from "@next/font/google";
 import styles from "@/styles/Home.module.scss";
-
-const inter = Inter({ subsets: ["latin"] });
+import Text from "@/components/common/Text";
+import logo from "@/img/logo.png";
+import icon_close from "@/img/icon_close.svg";
 
 export default function Home() {
   return (
@@ -15,7 +15,175 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <h1>Litarary</h1>
+        <div className={styles.notice}>
+          <Image src={icon_close} alt="" style={{ visibility: "hidden" }} />
+          <Text
+            text="리터러리에 방문하신 여러분을 진심으로 환영할게요!"
+            fontSize={20}
+            lineHeight={28}
+            color="#1A1A1A"
+          />
+          <Image src={icon_close} alt="" />
+        </div>
+        <header className={styles.header}>
+          <div className={styles.left}>
+            <Image src={logo} alt="" />
+            <Text
+              text="도서목록"
+              fontWeight={700}
+              fontSize={24}
+              lineHeight={32}
+              color="#1A1A1A"
+              style={{
+                marginRight: "40px",
+              }}
+            />
+            <Text
+              text="도서찾기"
+              fontWeight={700}
+              fontSize={24}
+              lineHeight={32}
+              color="#1A1A1A"
+            />
+          </div>
+          <div className={styles.right}>
+            <Text
+              text="알림"
+              fontWeight={700}
+              fontSize={24}
+              lineHeight={32}
+              color="#1A1A1A"
+              style={{
+                marginRight: "40px",
+              }}
+            />
+            <Text
+              text="내정보"
+              fontWeight={700}
+              fontSize={24}
+              lineHeight={32}
+              color="#1A1A1A"
+            />
+          </div>
+        </header>
+        <div className={styles.center}>
+          <Text
+            text={`우리 회사가 도서관으로!\n`}
+            fontWeight={700}
+            fontSize={48}
+            lineHeight={64}
+            color="white"
+          />
+          <Text
+            text={`부담없고 간편하게 도서를 공유해요.`}
+            fontWeight={700}
+            fontSize={48}
+            lineHeight={64}
+            color="white"
+          />
+          <Text
+            text="리터러리는 도서 공유로 사내 구성원과 교류를 쌓을 수 있는 곳이에요."
+            fontWeight={400}
+            fontSize={20}
+            lineHeight={28}
+            color="white"
+            style={{
+              display: "block",
+              marginTop: "24px",
+              marginBottom: "96px",
+            }}
+          />
+          <div className={styles.button}>
+            <Text
+              text="도서 등록하기"
+              fontWeight={700}
+              fontSize={24}
+              lineHeight={32}
+              color="#1A1A1A"
+            />
+          </div>
+        </div>
+        <div className={styles.info1}>
+          <div></div>
+          <div>
+            <Text
+              text={`평소 인상깊게 읽었던 도서를\n`}
+              fontWeight={700}
+              fontSize={48}
+              lineHeight={64}
+              color="#1A1A1A"
+            />
+            <Text
+              text={`사내 구성원에 공유해요.`}
+              fontWeight={700}
+              fontSize={48}
+              lineHeight={64}
+              color="#1A1A1A"
+            />
+            <Text
+              text="평소에 인상깊게 읽었고 공유하고 싶었던 도서를 가지고 있나요? 하루 중에 가장 오래 머물고 있는 사무실에서, 누군가도 그 도서를 읽고 싶을 수 있어요. 리터러리에서 도서를 공유하고 사내 구성원과 따뜻함을 공유해 보세요!"
+              fontWeight={400}
+              fontSize={20}
+              lineHeight={28}
+              color="#1A1A1A"
+              style={{
+                display: "block",
+                marginTop: "24px",
+              }}
+            />
+          </div>
+        </div>
+        <div className={styles.info2}>
+          <Text
+            text="등록된 도서를 빌려보고, 반납해요."
+            fontWeight={700}
+            fontSize={48}
+            lineHeight={64}
+            color="#1A1A1A"
+          />
+          <div className={styles.detail}>
+            <div className={styles.left}>
+              <Text
+                text="빌려보기"
+                fontWeight={700}
+                fontSize={32}
+                lineHeight={40}
+                color="#1A1A1A"
+                style={{
+                  display: "block",
+                  marginBottom: "24px",
+                }}
+              />
+              <Text
+                text="내 도서가 등록되면 사내 구성원만 빌려볼 수 있고, 한 명이 한 권씩 빌려볼 수 있어서 분실할 확률이 적어요! 도서를 빌리고 반납하는 장소를 잘 살펴보고, 빌리면서 한 마디 따뜻한 대화를 나누어 보세요."
+                fontWeight={400}
+                fontSize={20}
+                lineHeight={28}
+                color="#1A1A1A"
+              />
+            </div>
+            <div className={styles.right}>
+              <Text
+                text="반납하기"
+                fontWeight={700}
+                fontSize={32}
+                lineHeight={40}
+                color="#1A1A1A"
+                style={{
+                  display: "block",
+                  marginBottom: "24px",
+                }}
+              />
+              <Text
+                text="분쟁을 막기 위해 빌린 도서를 반납 시기에 맞추어 깨끗하게 반납할 수 있도록 해주세요. 도서를 추천하면 사내 구성원들이 참고할 수 있어요!"
+                fontWeight={400}
+                fontSize={20}
+                lineHeight={28}
+                color="#1A1A1A"
+              />
+            </div>
+          </div>
+        </div>
       </main>
     </>
   );

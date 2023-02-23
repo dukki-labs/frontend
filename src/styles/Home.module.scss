@@ -1,8 +1,62 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6rem;
-  min-height: 100vh;
+  .notice {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 240px;
+    height: 64px;
+    background: #00ffb2;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    padding: 24px 240px;
+    .left {
+      display: flex;
+      align-items: center;
+      img {
+        width: 48px;
+        height: 48px;
+        margin-right: 56px;
+      }
+    }
+  }
+  .center {
+    padding: 154px 240px;
+    background: #1a1a1a;
+    .button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 337px;
+      height: 64px;
+      background: #00ffb2;
+      border-radius: 8px;
+    }
+  }
+  .info1 {
+    padding: 192px 240px 168px;
+    display: flex;
+    justify-content: center;
+    div {
+      flex: 1;
+    }
+  }
+  .info2 {
+    padding: 168px 240px 192px;
+    .detail {
+      display: flex;
+      justify-content: center;
+      margin-top: 160px;
+      .left {
+        flex: 1;
+        margin-right: 124px;
+      }
+      .right {
+        flex: 1;
+      }
+    }
+  }
 }
