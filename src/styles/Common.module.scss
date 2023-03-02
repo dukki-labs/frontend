@@ -3,27 +3,34 @@
   white-space: pre-line;
 }
 
-.book {
+.bookBox {
   display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  .bookImg {
-    width: 244px;
-    height: 347px;
-    margin-bottom: 32px;
-  }
-  .iconBox {
+  .book {
+    flex: 1;
     display: flex;
-    .icon {
+    flex-direction: column;
+    cursor: pointer;
+    & + .book {
+      margin-left: 55px;
+    }
+    .bookImg {
+      width: 100%;
+      height: auto;
+      margin-bottom: 32px;
+    }
+    .iconBox {
       display: flex;
-      align-items: center;
-      img {
-        width: 24px;
-        height: 24px;
-        margin-right: 8px;
-      }
-      & + .icon {
-        margin-left: 24px;
+      .icon {
+        display: flex;
+        align-items: center;
+        img {
+          width: 24px;
+          height: 24px;
+          margin-right: 8px;
+        }
+        & + .icon {
+          margin-left: 24px;
+        }
       }
     }
   }
