@@ -2,3 +2,29 @@
   font-family: Medium;
   white-space: pre-line;
 }
+
+.book {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  .bookImg {
+    width: 244px;
+    height: 347px;
+    margin-bottom: 32px;
+  }
+  .iconBox {
+    display: flex;
+    .icon {
+      display: flex;
+      align-items: center;
+      img {
+        width: 24px;
+        height: 24px;
+        margin-right: 8px;
+      }
+      & + .icon {
+        margin-left: 24px;
+      }
+    }
+  }
+}
