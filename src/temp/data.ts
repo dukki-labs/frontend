@@ -31,20 +31,20 @@ export const newList = [
     like: 2,
     img: c,
   },
-  {
-    bookName: "데일 카네기 인간관계론",
-    writer: "데일 카네기",
-    category: "자기계발",
-    like: 10,
-    img: d,
-  },
-  {
-    bookName: "긴긴밤",
-    writer: "루리",
-    category: "국내창작동화",
-    like: 10,
-    img: e,
-  },
+  // {
+  //   bookName: "데일 카네기 인간관계론",
+  //   writer: "데일 카네기",
+  //   category: "자기계발",
+  //   like: 10,
+  //   img: d,
+  // },
+  // {
+  //   bookName: "긴긴밤",
+  //   writer: "루리",
+  //   category: "국내창작동화",
+  //   like: 10,
+  //   img: e,
+  // },
 ];
 
 export const popularList = [
