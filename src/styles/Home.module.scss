@@ -88,7 +88,7 @@
 }
 
 .newSection {
-  padding: 10% 0;
+  padding: 168px 0;
   width: 75%;
   margin: 0 auto;
   .titleBox {
@@ -106,5 +106,19 @@
         cursor: pointer;
       }
     }
+  }
+}
+
+.interestingSection {
+  padding: 10% 0;
+  width: 75%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  & > div:nth-child(2) {
+    position: absolute;
+    width: 100%;
+    flex-direction: row-reverse;
   }
 }
