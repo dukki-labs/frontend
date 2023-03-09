@@ -4,6 +4,7 @@ import styles from "@/styles/Home.module.scss";
 import Text from "@/components/common/Text";
 import TextGothic from "@/components/common/TextGothic";
 import NewBooks from "@/components/home/NewBooks";
+import InterestingBook from "@/components/home/InterestingBook";
 import logo from "@/img/logo.png";
 import icon_close from "@/img/icon_close.svg";
 import icon_right_arrow from "@/img/icon_right_arrow.svg";
@@ -176,6 +177,7 @@ export default function Home({ newData, popluarData }: Home) {
           </div>
         </div>
         <NewBooks data={newData} />
+        <InterestingBook data={popluarData} />
         <div className={styles.center}>
           <TextGothic
             text={`우리 회사가 도서관으로!\n`}
