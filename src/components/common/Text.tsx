@@ -29,7 +29,7 @@ export default function Text({
   fontWeight = 500,
   fontSize = 16,
   lineHeight = 22,
-  color = "black",
+  color = "#1a1a1a",
   style,
 }: Text) {
   const inlineStyle = {
