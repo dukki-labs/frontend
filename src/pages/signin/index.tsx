@@ -5,6 +5,7 @@ import Image from "next/image";
 import Text from "@/components/common/Text";
 import TextGothic from "@/components/common/TextGothic";
 import styles from "@/styles/Entrance.module.scss";
+import { api } from "@/utils/api";
 import icon_eye_on from "@/img/icon_eye_on.svg";
 import icon_eye_off from "@/img/icon_eye_off.svg";
 
@@ -15,8 +16,18 @@ export default function SignIn() {
   const [isEyeOn, setIsEyeOn] = useState(false);
   const router = useRouter();
 
-  const onSignIn = () => {
-    console.log("sign");
+  const onSignIn = async () => {
+    const { data, status } = await api.post(`/api/v1/account/login`, {
+      email,
+      password,
+    });
+    console.log(data);
+    if (status === 200) {
+      api.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${data.accessToken}`;
+      router.replace("/");
+    }
   };
 
   return (
