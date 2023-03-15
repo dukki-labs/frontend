@@ -1,4 +1,5 @@
 import Text from "@/components/common/Text";
+import TextGothic from "@/components/common/TextGothic";
 import styles from "@/styles/Entrance.module.scss";
 
 interface Title {
@@ -10,26 +11,47 @@ export default function Title({ step }: Title) {
     <div className={styles.title}>
       {step === 1 && (
         <>
-          <span>원활한 이용을 위해서</span>
-          <br />
-          <span>
-            <span className={styles.bold}>리터러리 약관</span>에 동의해주세요.
-          </span>
+          <TextGothic
+            text="서비스 이용을 위해서"
+            fontWeight={700}
+            fontSize={36}
+            lineHeight={44}
+            style={{
+              display: "block",
+              marginBottom: "8px",
+            }}
+          />
+          <TextGothic
+            text="리터러리 약관에 동의해 주세요."
+            fontWeight={700}
+            fontSize={36}
+            lineHeight={44}
+          />
         </>
       )}
       {step === 2 && (
-        <span>
-          <span className={styles.bold}>기본정보를</span>등록해주세요.
-        </span>
+        <TextGothic
+          text="기본 정보를 입력해 주세요."
+          fontWeight={700}
+          fontSize={36}
+          lineHeight={44}
+        />
       )}
       {step === 3 && (
         <>
-          <span>
-            <span className={styles.bold}>관심사</span>를 선택해주세요.
-          </span>
-          <br />
-          <Text
-            text="최대 6개까지 선택할 수 있어요."
+          <TextGothic
+            text="관심 카테고리를 선택해 주세요."
+            fontWeight={700}
+            fontSize={36}
+            lineHeight={44}
+            style={{
+              display: "block",
+              marginBottom: "8px",
+            }}
+          />
+          <TextGothic
+            text="최대 4개까지 선택할 수 있어요."
+            fontWeight={400}
             fontSize={20}
             lineHeight={28}
             color="#999999"

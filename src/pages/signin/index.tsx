@@ -54,10 +54,6 @@ export default function SignIn() {
               fontWeight={700}
               fontSize={36}
               lineHeight={44}
-              style={{
-                display: "block",
-                marginBottom: "8px",
-              }}
             />
           </div>
           <div className={styles.singinBox}>
