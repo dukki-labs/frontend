@@ -1,12 +1,10 @@
+import { useRouter } from "next/router";
 import Head from "next/head";
-import Image from "next/image";
 import styles from "@/styles/Home.module.scss";
-import Text from "@/components/common/Text";
 import TextGothic from "@/components/common/TextGothic";
-import logo from "@/img/logo.png";
-import icon_close from "@/img/icon_close.svg";
 
 export default function Home() {
+  const router = useRouter();
   return (
     <>
       <Head>
@@ -16,57 +14,6 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div className={styles.notice}>
-          <Image src={icon_close} alt="" style={{ visibility: "hidden" }} />
-          <TextGothic
-            text="리터러리에 방문하신 여러분을 진심으로 환영할게요!"
-            fontSize={20}
-            lineHeight={28}
-            color="#1A1A1A"
-          />
-          <Image src={icon_close} alt="" />
-        </div>
-        <header className={styles.header}>
-          <div className={styles.left}>
-            <Image src={logo} alt="" />
-            <TextGothic
-              text="도서목록"
-              fontWeight={700}
-              fontSize={24}
-              lineHeight={32}
-              color="#1A1A1A"
-              style={{
-                marginRight: "40px",
-              }}
-            />
-            <TextGothic
-              text="도서찾기"
-              fontWeight={700}
-              fontSize={24}
-              lineHeight={32}
-              color="#1A1A1A"
-            />
-          </div>
-          <div className={styles.right}>
-            <TextGothic
-              text="알림"
-              fontWeight={700}
-              fontSize={24}
-              lineHeight={32}
-              color="#1A1A1A"
-              style={{
-                marginRight: "40px",
-              }}
-            />
-            <TextGothic
-              text="내정보"
-              fontWeight={700}
-              fontSize={24}
-              lineHeight={32}
-              color="#1A1A1A"
-            />
-          </div>
-        </header>
         <div className={styles.center}>
           <TextGothic
             text={`우리 회사가 도서관으로!\n`}
@@ -94,7 +41,10 @@ export default function Home() {
               marginBottom: "96px",
             }}
           />
-          <div className={styles.button}>
+          <div
+            className={styles.button}
+            onClick={() => router.push("/register")}
+          >
             <TextGothic
               text="도서 등록하기"
               fontWeight={700}
