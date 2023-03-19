@@ -1,13 +1,23 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import Head from "next/head";
 import styles from "@/styles/Entrance.module.scss";
 import Title from "@/components/signup/Title";
 import Terms from "@/components/signup/Terms";
+import UserInfo from "@/components/signup/UserInfo";
 import Interest from "@/components/signup/Interest";
+import { api } from "@/utils/api";
 
 export default function SignUp() {
+  const router = useRouter();
   const [step, setStep] = useState<number>(1);
   const [terms, setTerms] = useState<boolean[]>([false, false, false]);
+  const [userInfo, setUserInfo] = useState<{ [key: string]: string }>({
+    email: "",
+    password: "",
+    nickName: "",
+  });
+  const [interest, setInterest] = useState<string[]>([]);
 
   const onClickTerm = (idx: number) => {
     if (idx === 3) {
@@ -30,11 +40,38 @@ export default function SignUp() {
     });
   };
 
-  const onClickButton = () => {
-    if (step === 1 && terms[0] && terms[1]) {
-      setStep(3);
+  const onClickButton = async () => {
+    if (step === 1) {
+      setStep(2);
       return;
     }
+    if (step === 3) {
+      console.log(interest);
+      const body = {
+        nickName: userInfo.nickName,
+        email: userInfo.email,
+        password: userInfo.password,
+        accessRoles: ["USER"],
+        serviceTerms: terms[0],
+        privacyTerms: terms[1],
+        serviceAlarm: terms[2],
+      };
+      console.log(body);
+      const { status } = await api.post(`/api/v1/account/sign-up`, {
+        ...body,
+      });
+      if (status === 200) {
+        router.replace("/signup/done");
+      }
+    }
+  };
+  const onClickUserInfo = (e: string, p: string, n: string) => {
+    setUserInfo({
+      email: e,
+      password: p,
+      nickName: n,
+    });
+    setStep(3);
   };
 
   return (
@@ -59,8 +96,15 @@ export default function SignUp() {
               onClickButton={onClickButton}
             />
           )}
+          {step === 2 && <UserInfo onClickButton={onClickUserInfo} />}
+          {step === 3 && (
+            <Interest
+              interest={interest}
+              setInterest={setInterest}
+              onClickButton={onClickButton}
+            />
+          )}
         </section>
-        {step === 3 && <Interest onClickButton={onClickButton} />}
       </main>
     </>
   );
