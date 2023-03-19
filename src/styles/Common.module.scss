@@ -1,3 +1,32 @@
+.notice {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 240px;
+  height: 60px;
+  background: #1a1a1a;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 240px;
+  height: 96px;
+  .left {
+    display: flex;
+    align-items: center;
+    img {
+      width: 48px;
+      height: 48px;
+      margin-right: 56px;
+    }
+  }
+  .right {
+    display: flex;
+    align-items: center;
+  }
+}
+
 .text {
   font-family: Medium;
   white-space: pre-line;
