@@ -173,7 +173,13 @@
             height: 72px;
             background: #e6e6e6;
             border-radius: 4px;
+            &.on {
+              background: #1a1a1a;
+            }
           }
+        }
+        .authNumber {
+          margin-top: 16px;
         }
         .inputBox {
           display: flex;

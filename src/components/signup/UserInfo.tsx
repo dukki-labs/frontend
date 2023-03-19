@@ -2,6 +2,7 @@ import { useState } from "react";
 import Text from "@/components/common/Text";
 import TextGothic from "@/components/common/TextGothic";
 import styles from "@/styles/Entrance.module.scss";
+import { api } from "@/utils/api";
 
 interface Input {
   type: string;
@@ -29,9 +30,35 @@ interface UserInfo {
 
 export default function UserInfo({ onClickButton }: UserInfo) {
   const [email, setEmail] = useState("");
+  const [authNumber, setAuthNumber] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [nickName, setNickName] = useState("");
+  const [isAuthDone, setIsAuthDone] = useState(false);
+
+  const onClickSendAuthNum = async () => {
+    const { data, status } = await api.post(`/api/v1/account/send-code`, {
+      email,
+    });
+    console.log(data);
+  };
+
+  const onChangeAuthNumber = async (v: string) => {
+    if (v.length > 6) return;
+
+    if (v.length === 6) {
+      console.log("이메일검증");
+      // const { data, status } = await api.post(
+      //   `/api/v1/account/check-auth-code`,
+      //   {
+      //     email,
+      //   },
+      // );
+      // console.log(data);
+      setIsAuthDone(true);
+    }
+    setAuthNumber(v);
+  };
 
   const onClickUserInfo = () => {
     onClickButton(email, password, nickName);
@@ -57,7 +84,12 @@ export default function UserInfo({ onClickButton }: UserInfo) {
             onChange={setEmail}
             placeholder="이메일 입력"
           />
-          <div className={styles.validationButton}>
+          <div
+            className={`${styles.validationButton} ${
+              email.includes("@") && email.includes(".") ? styles.on : ""
+            }`}
+            onClick={onClickSendAuthNum}
+          >
             <TextGothic
               text="인증"
               fontWeight={700}
@@ -67,12 +99,14 @@ export default function UserInfo({ onClickButton }: UserInfo) {
             />
           </div>
         </div>
-        <Input
-          type="text"
-          value={email}
-          onChange={setEmail}
-          placeholder="이메일 입력"
-        />
+        <div className={styles.authNumber}>
+          <Input
+            type="text"
+            value={authNumber}
+            onChange={onChangeAuthNumber}
+            placeholder="이메일 인증 번호"
+          />
+        </div>
       </div>
       <div className={styles.infoBox}>
         <TextGothic
@@ -118,7 +152,9 @@ export default function UserInfo({ onClickButton }: UserInfo) {
       </div>
       <div
         className={`${styles.button} ${
-          email && password === passwordCheck && nickName ? styles.on : ""
+          email && isAuthDone && password === passwordCheck && nickName
+            ? styles.on
+            : ""
         }`}
         onClick={onClickUserInfo}
       >
@@ -127,7 +163,7 @@ export default function UserInfo({ onClickButton }: UserInfo) {
           fontSize={24}
           lineHeight={32}
           color={
-            email && password === passwordCheck && nickName
+            email && isAuthDone && password === passwordCheck && nickName
               ? "#1a1a1a"
               : "white"
           }
