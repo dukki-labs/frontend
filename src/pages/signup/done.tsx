@@ -8,8 +8,7 @@ export default function Done() {
   const router = useRouter();
 
   const onStart = () => {
-    console.log("start");
-    router.replace("/");
+    router.replace("/signin");
   };
 
   return (

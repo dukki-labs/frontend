@@ -173,6 +173,7 @@
             height: 72px;
             background: #e6e6e6;
             border-radius: 4px;
+            cursor: pointer;
             &.on {
               background: #1a1a1a;
             }
@@ -206,6 +207,9 @@
             color: #1a1a1a;
             &::placeholder {
               color: #999999;
+            }
+            &:disabled {
+              background: white;
             }
           }
         }

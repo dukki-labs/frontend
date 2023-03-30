@@ -12,7 +12,8 @@ export default function SignUp() {
   const router = useRouter();
   const [step, setStep] = useState<number>(1);
   const [terms, setTerms] = useState<boolean[]>([false, false, false]);
-  const [userInfo, setUserInfo] = useState<{ [key: string]: string }>({
+  const [userInfo, setUserInfo] = useState<{ [key: string]: string | number }>({
+    memberId: 0,
     email: "",
     password: "",
     nickName: "",
@@ -46,8 +47,8 @@ export default function SignUp() {
       return;
     }
     if (step === 3) {
-      console.log(interest);
       const body = {
+        memberId: userInfo.memberId,
         nickName: userInfo.nickName,
         email: userInfo.email,
         password: userInfo.password,
@@ -55,18 +56,21 @@ export default function SignUp() {
         serviceTerms: terms[0],
         privacyTerms: terms[1],
         serviceAlarm: terms[2],
+        bookCategoryList: interest,
       };
       console.log(body);
       const { status } = await api.post(`/api/v1/account/sign-up`, {
         ...body,
       });
-      if (status === 200) {
+      if (status === 201) {
         router.replace("/signup/done");
       }
     }
   };
-  const onClickUserInfo = (e: string, p: string, n: string) => {
+
+  const onClickUserInfo = (i: number, e: string, p: string, n: string) => {
     setUserInfo({
+      memberId: i,
       email: e,
       password: p,
       nickName: n,

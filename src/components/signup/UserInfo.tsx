@@ -9,9 +9,16 @@ interface Input {
   value: string;
   placeholder: string;
   onChange: (value: string) => void;
+  disabled: boolean;
 }
 
-const Input = ({ type, value, onChange, placeholder }: Input) => {
+const Input = ({
+  type,
+  value,
+  onChange,
+  placeholder,
+  disabled = false,
+}: Input) => {
   return (
     <div className={styles.inputBox}>
       <input
@@ -19,13 +26,19 @@ const Input = ({ type, value, onChange, placeholder }: Input) => {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
+        disabled={disabled}
       />
     </div>
   );
 };
 
 interface UserInfo {
-  onClickButton: (email: string, password: string, nickName: string) => void;
+  onClickButton: (
+    memberId: number,
+    email: string,
+    password: string,
+    nickName: string,
+  ) => void;
 }
 
 export default function UserInfo({ onClickButton }: UserInfo) {
@@ -35,33 +48,33 @@ export default function UserInfo({ onClickButton }: UserInfo) {
   const [passwordCheck, setPasswordCheck] = useState("");
   const [nickName, setNickName] = useState("");
   const [isAuthDone, setIsAuthDone] = useState(false);
+  const [tempMemberId, setTempMemberId] = useState(0);
 
   const onClickSendAuthNum = async () => {
     const { data, status } = await api.post(`/api/v1/account/send-code`, {
       email,
     });
-    console.log(data);
+    if (status === 200) {
+      setTempMemberId(data.memberId);
+    }
   };
 
   const onChangeAuthNumber = async (v: string) => {
     if (v.length > 6) return;
-
-    if (v.length === 6) {
-      console.log("이메일검증");
-      // const { data, status } = await api.post(
-      //   `/api/v1/account/check-auth-code`,
-      //   {
-      //     email,
-      //   },
-      // );
-      // console.log(data);
-      setIsAuthDone(true);
-    }
     setAuthNumber(v);
+    if (v.length === 6) {
+      const { status } = await api.post(`/api/v1/account/check-auth-code`, {
+        memberId: tempMemberId,
+        authCode: v,
+      });
+      if (status === 200) {
+        setIsAuthDone(true);
+      }
+    }
   };
 
   const onClickUserInfo = () => {
-    onClickButton(email, password, nickName);
+    onClickButton(tempMemberId, email, password, nickName);
   };
 
   return (
@@ -83,6 +96,7 @@ export default function UserInfo({ onClickButton }: UserInfo) {
             value={email}
             onChange={setEmail}
             placeholder="이메일 입력"
+            disabled={false}
           />
           <div
             className={`${styles.validationButton} ${
@@ -105,6 +119,7 @@ export default function UserInfo({ onClickButton }: UserInfo) {
             value={authNumber}
             onChange={onChangeAuthNumber}
             placeholder="이메일 인증 번호"
+            disabled={tempMemberId === 0 ? true : false}
           />
         </div>
       </div>
@@ -124,12 +139,14 @@ export default function UserInfo({ onClickButton }: UserInfo) {
           value={password}
           onChange={setPassword}
           placeholder="패스워드 입력 (8자 이상)"
+          disabled={false}
         />
         <Input
           type="password"
           value={passwordCheck}
           onChange={setPasswordCheck}
           placeholder="패스워드 재입력"
+          disabled={false}
         />
       </div>
       <div className={styles.infoBox}>
@@ -148,6 +165,7 @@ export default function UserInfo({ onClickButton }: UserInfo) {
           value={nickName}
           onChange={setNickName}
           placeholder="닉네임 입력"
+          disabled={false}
         />
       </div>
       <div
