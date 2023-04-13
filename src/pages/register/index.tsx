@@ -83,19 +83,19 @@ export default function Register() {
       returnLocation: place,
       memberId: memberId,
     };
-    // const { status } = await api.post(
-    //   `/api/v1/categories/${selectedBook[0].categoryMapId}/books`,
-    //   body,
-    // );
-    // if (status === 201) {
-    //   setAlertModal({
-    //     title: "도서 등록이 완료되었어요!",
-    //     desc: "내 정보에서 등록 내역을 확인할 수 있어요.",
-    //     buttonText: "메인으로 돌아가기",
-    //     isOpen: true,
-    //     onConfirm: () => router.replace("/"),
-    //   });
-    // }
+    const { status } = await api.post(
+      `/api/v1/categories/${selectedBook[0].categoryMapId}/books`,
+      body,
+    );
+    if (status === 201) {
+      setAlertModal({
+        title: "도서 등록이 완료되었어요!",
+        desc: "내 정보에서 등록 내역을 확인할 수 있어요.",
+        buttonText: "메인으로 돌아가기",
+        isOpen: true,
+        onConfirm: () => router.replace("/"),
+      });
+    }
   };
 
   return (
