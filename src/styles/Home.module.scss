@@ -1,74 +1,55 @@
 .main {
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
+  width: 1440px;
   .center {
-    padding: 154px 240px;
-    background: #1a1a1a;
-    &.paddingBottom {
-      padding-bottom: 96px;
-    }
-    .button {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 337px;
-      height: 64px;
-      background: #00ffb2;
-    }
-    .buttonBox {
-      display: flex;
-      .eachButton {
-        flex: 1;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        padding: 26px 20px 26px 32px;
-        height: 112px;
-        background: #fff;
-        cursor: pointer;
-        &.main {
-          background: #00ffb2;
-        }
-        & + .eachButton {
-          margin-left: 30px;
-        }
-        .text {
-          display: flex;
-          flex-direction: column;
-        }
-      }
-    }
+    width: 100%;
+    height: 500px;
   }
-  .info1 {
-    padding: 192px 240px 168px;
+  .infoBox {
     display: flex;
-    justify-content: center;
-    div {
+    border: 1.5px solid #ededed;
+    border-bottom: 1.5px solid #1a1a1a;
+    .info {
       flex: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30px 32px 30px 40px;
+      cursor: pointer;
+      & + .info {
+        border-left: 1.5px solid #ededed;
+      }
     }
   }
-  .info2 {
-    padding: 168px 240px 192px;
-    .detail {
-      display: flex;
-      justify-content: center;
-      margin-top: 160px;
-      .left {
-        flex: 1;
-        margin-right: 124px;
-      }
-      .right {
-        flex: 1;
+}
+
+.basicInfo {
+  padding: 192px 0;
+  width: 100%;
+  .info1 {
+    margin-bottom: 256px;
+  }
+  .basicInfoBox {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 128px;
+    .basicInfo {
+      flex: 1;
+      padding: 32px 40px;
+      border: 1.5px solid #ededed;
+      border-radius: 8px;
+      & + .basicInfo {
+        margin-left: 40px;
       }
     }
   }
 }
 
 .newSection {
-  padding: 168px 0;
-  width: 75%;
   margin: 0 auto;
+  width: 1440px;
   .titleBox {
     margin-bottom: 96px;
     .mainTitle {
@@ -77,10 +58,12 @@
       align-items: center;
       .moreButton {
         display: flex;
+        justify-content: center;
         align-items: center;
-        padding: 14px 24px;
-        height: 56px;
-        background: #1a1a1a;
+        width: 91px;
+        height: 48px;
+        border: 1.5px solid #ededed;
+        border-radius: 8px;
         cursor: pointer;
       }
     }
