@@ -7,6 +7,8 @@ import Text from "@/components/common/Text";
 import TextGothic from "@/components/common/TextGothic";
 import Button from "@/components/common/Button";
 import { api } from "@/utils/api";
+import UseMemberId from "@/utils/useMemberId";
+import UseAlertModal from "@/utils/useAlertModal";
 import icon_close from "@/img/icon_close_black.svg";
 
 interface SearchResult {
@@ -44,64 +46,56 @@ export default function Register() {
   const [keyward, setKeyward] = useState("");
   const [searchResult, setSearchResult] = useState<SearchResult[]>([]);
   const [selectedBook, setSelectBook] = useState<SearchResult[]>([]);
-  const [period, setPeriod] = useState("1주");
+  const [period, setPeriod] = useState("ONE_WEEK");
   const [place, setPlace] = useState("");
   const [comment, setComment] = useState("");
+  const { memberId } = UseMemberId();
+  const { alertModal, setAlertModal } = UseAlertModal();
 
   const onSearch = async () => {
     setSelectBook([]);
     const { data, status } = await api.get(`/api/v1/books/container/search`, {
       params: {
-        searchKeyword: "코스모스",
+        searchKeyword: keyward,
         page: 1,
         size: 10,
       },
     });
-    console.log(data);
-    // const data = {
-    //   page: 1,
-    //   size: 5,
-    //   totalCount: 10,
-    //   bookList: [
-    //     {
-    //       title: "자바 ORM 표준 JPA 프로그래밍",
-    //       author: "김영한 지음",
-    //       pubDate: "2015-07-27",
-    //       description: "도서 내용 설명",
-    //       imageUrl:
-    //         "https://image.aladin.co.kr/product/6268/14/cover150/8960777331_1.jpg",
-    //       categoryMapId: 33,
-    //       bookCategory: "Computer_Mobile",
-    //       publisher: "에이콘출판",
-    //     },
-    //     {
-    //       title: "코스모스 - 보급판",
-    //       author: "칼 세이건 (지은이), 홍승수 (옮긴이)",
-    //       pubDate: "2006-12-20",
-    //       description: "도서 내용 설명",
-    //       imageUrl:
-    //         "https://image.aladin.co.kr/product/87/9/coversum/s922637499_3.jpg",
-    //       categoryMapId: 33,
-    //       bookCategory: "Science",
-    //       publisher: "사이언스북스",
-    //     },
-    //   ],
-    // };
-    // setSearchResult(data.bookList);
+    if (status === 200) {
+      setSearchResult(data.bookList);
+    }
   };
 
   const onSelectBook = (book: SearchResult) => {
     setSelectBook([book]);
   };
 
-  const onRegister = () => {
+  const onRegister = async () => {
     const body = {
-      selectedBook,
-      period,
-      place,
-      comment,
+      title: selectedBook[0].title,
+      imageUrl: selectedBook[0].imageUrl,
+      content: selectedBook[0].description,
+      review: comment,
+      deadLine: period,
+      author: selectedBook[0].author,
+      publisher: selectedBook[0].publisher,
+      publishDate: selectedBook[0].pubDate,
+      returnLocation: place,
+      memberId: memberId,
     };
-    console.log(body);
+    const { status } = await api.post(
+      `/api/v1/categories/${selectedBook[0].categoryMapId}/books`,
+      body,
+    );
+    if (status === 201) {
+      setAlertModal({
+        title: "도서 등록이 완료되었어요!",
+        desc: "내 정보에서 등록 내역을 확인할 수 있어요.",
+        buttonText: "메인으로 돌아가기",
+        isOpen: true,
+        onConfirm: () => router.replace("/"),
+      });
+    }
   };
 
   return (
@@ -288,20 +282,37 @@ export default function Register() {
                 }}
               />
               <div className={styles.periodBox}>
-                {["1주", "2주", "3주", "4주"].map((v, i) => (
+                {[
+                  {
+                    name: "ONE_WEEK",
+                    nameKo: "1주",
+                  },
+                  {
+                    name: "TWO_WEEK",
+                    nameKo: "2주",
+                  },
+                  {
+                    name: "THREE_WEEK",
+                    nameKo: "3주",
+                  },
+                  {
+                    name: "FOUR_WEEK",
+                    nameKo: "4주",
+                  },
+                ].map((v, i) => (
                   <div
                     key={i}
                     className={`${styles.period} ${
-                      v === period ? styles.on : ""
+                      v.name === period ? styles.on : ""
                     }`}
-                    onClick={() => setPeriod(v)}
+                    onClick={() => setPeriod(v.name)}
                   >
                     <TextGothic
-                      text={v}
+                      text={v.nameKo}
                       fontWeight={700}
                       fontSize={20}
                       lineHeight={28}
-                      color={v === period ? "#1a1a1a" : "#999999"}
+                      color={v.name === period ? "#1a1a1a" : "#999999"}
                     />
                   </div>
                 ))}

@@ -6,6 +6,7 @@ import Text from "@/components/common/Text";
 import TextGothic from "@/components/common/TextGothic";
 import styles from "@/styles/Entrance.module.scss";
 import { api } from "@/utils/api";
+import UseMemberId from "@/utils/useMemberId";
 import icon_eye_on from "@/img/icon_eye_on.svg";
 import icon_eye_off from "@/img/icon_eye_off.svg";
 
@@ -15,6 +16,7 @@ export default function SignIn() {
   const [active, setActive] = useState(0);
   const [isEyeOn, setIsEyeOn] = useState(false);
   const router = useRouter();
+  const { setMemberId } = UseMemberId();
 
   const onSignIn = async () => {
     const { data, status } = await api.post(`/api/v1/account/login`, {
@@ -27,6 +29,7 @@ export default function SignIn() {
         "Authorization"
       ] = `Bearer ${data.accessToken}`;
       router.replace("/");
+      setMemberId(data.memberId);
     }
   };
 

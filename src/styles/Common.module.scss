@@ -74,3 +74,39 @@
   border-radius: 8px;
   cursor: pointer;
 }
+
+.alertModal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(1px);
+  .modal_main {
+    padding: 64px 32px 32px;
+    width: 600px;
+    background: #fff;
+    box-shadow: 4px 8px 20px rgba(26, 26, 26, 0.08);
+    border-radius: 12px;
+    .body {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      .buttonBox {
+        margin-top: 48px;
+        .oneButton {
+          padding: 22px;
+          width: 100%;
+          background: #1a1a1a;
+          border-radius: 12px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
