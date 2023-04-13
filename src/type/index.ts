@@ -1,9 +1,10 @@
 import { StaticImageData } from "next/image";
 
 export interface bookData {
-  bookName: string;
-  writer: string;
+  isNew: boolean;
+  title: string;
   category: string;
-  like: number;
-  img: StaticImageData;
+  content: string;
+  imageUrl: string;
+  recommendCount: number;
 }

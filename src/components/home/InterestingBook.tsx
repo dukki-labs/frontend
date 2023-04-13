@@ -58,7 +58,7 @@ export default function InterestingBook({ data }: InterestingBook) {
           />
         </div>
       </div>
-      <BookBox data={data} />
+      <BookBox data={data} isNew={false} />
     </section>
   );
 }

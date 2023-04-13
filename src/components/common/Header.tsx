@@ -34,7 +34,11 @@ export default function Header() {
         </div>
         <div className={styles.right}>
           <Image src={icon_alarm} alt="" />
-          <Image src={icon_profile} alt="" />
+          <Image
+            src={icon_profile}
+            alt=""
+            onClick={() => router.push("/signin")}
+          />
           <Image src={icon_search} alt="" />
         </div>
       </header>

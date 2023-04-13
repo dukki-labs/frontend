@@ -1,13 +1,31 @@
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Head from "next/head";
 import styles from "@/styles/Home.module.scss";
 import TextGothic from "@/components/common/TextGothic";
 import BasicInfo from "@/components/home/BasicInfo";
+import NewBooks from "@/components/home/NewBooks";
+import { api } from "@/utils/api";
 import icon_right from "@/img/icon_right.svg";
 
 export default function Home() {
   const router = useRouter();
+  const [newBookList, setNewBookList] = useState([]);
+
+  useEffect(() => {
+    const fetchNewBooks = async () => {
+      const { data, status } = await api.get(`/api/v1/recent/books`, {
+        params: {
+          memberId: 2,
+          size: 6,
+        },
+      });
+      setNewBookList(data.bookInfoDtoList);
+    };
+    fetchNewBooks();
+  }, []);
+
   return (
     <>
       <Head>
@@ -19,7 +37,7 @@ export default function Home() {
       <main className={styles.main}>
         <div className={styles.center}></div>
         <div className={styles.infoBox}>
-          <div className={styles.info}>
+          <div className={styles.info} onClick={() => router.push("/register")}>
             <div className={styles.text}>
               <TextGothic
                 text="도서 등록하기"
@@ -84,6 +102,7 @@ export default function Home() {
           </div>
         </div>
         <BasicInfo />
+        <NewBooks data={newBookList} />
       </main>
     </>
   );

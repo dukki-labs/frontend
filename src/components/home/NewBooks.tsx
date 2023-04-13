@@ -8,40 +8,41 @@ interface NewBooks {
 }
 
 export default function NewBooks({ data }: NewBooks) {
+  if (data.length === 0) {
+    return <></>;
+  }
+
   return (
     <section className={styles.newSection}>
       <div className={styles.titleBox}>
         <TextGothic
-          text="2023년 12월 4주차"
-          fontWeight={700}
-          fontSize={20}
-          lineHeight={28}
-          color="#000000"
+          text="신규도서"
+          fontWeight={400}
+          fontSize={16}
+          lineHeight={24}
           style={{
             display: "block",
-            marginBottom: "24px",
+            marginBottom: "16px",
           }}
         />
         <div className={styles.mainTitle}>
           <TextGothic
-            text="최근에 등록된 신규 도서가 있어요."
+            text="한 달 사이 등록된 도서에요."
             fontWeight={700}
-            fontSize={48}
-            lineHeight={64}
-            color="#1a1a1a"
+            fontSize={40}
+            lineHeight={48}
           />
           <div className={styles.moreButton}>
             <TextGothic
-              text="더 보러가기"
+              text="더 보기"
               fontWeight={700}
-              fontSize={20}
-              lineHeight={28}
-              color="#ffffff"
+              fontSize={16}
+              lineHeight={24}
             />
           </div>
         </div>
       </div>
-      <BookBox data={data} />
+      <BookBox data={data} isNew={true} />
     </section>
   );
 }

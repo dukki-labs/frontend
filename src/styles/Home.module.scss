@@ -17,6 +17,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 30px 32px 30px 40px;
+      cursor: pointer;
       & + .info {
         border-left: 1.5px solid #ededed;
       }
@@ -47,9 +48,8 @@
 }
 
 .newSection {
-  padding: 168px 0;
-  width: 75%;
   margin: 0 auto;
+  width: 1440px;
   .titleBox {
     margin-bottom: 96px;
     .mainTitle {
@@ -58,10 +58,12 @@
       align-items: center;
       .moreButton {
         display: flex;
+        justify-content: center;
         align-items: center;
-        padding: 14px 24px;
-        height: 56px;
-        background: #1a1a1a;
+        width: 91px;
+        height: 48px;
+        border: 1.5px solid #ededed;
+        border-radius: 8px;
         cursor: pointer;
       }
     }

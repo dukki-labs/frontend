@@ -93,7 +93,10 @@ export default function Register() {
         desc: "내 정보에서 등록 내역을 확인할 수 있어요.",
         buttonText: "메인으로 돌아가기",
         isOpen: true,
-        onConfirm: () => router.replace("/"),
+        onConfirm: () => {
+          setAlertModal((prev) => ({ ...prev, isOpen: false }));
+          router.replace("/");
+        },
       });
     }
   };

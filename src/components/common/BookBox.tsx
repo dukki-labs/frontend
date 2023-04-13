@@ -4,24 +4,30 @@ import { bookData } from "@/type";
 
 interface BookBox {
   data: bookData[];
+  isNew: boolean;
 }
 
-export default function BookBox({ data }: BookBox) {
+export default function BookBox({ data, isNew }: BookBox) {
   return (
     <div className={styles.bookBox}>
       {data.map((v, i) => (
         <Book
           key={i}
-          bookName={v.bookName}
-          writer={v.writer}
+          isNew={isNew}
+          title={v.title}
           category={v.category}
-          like={v.like}
-          img={v.img}
+          content={v.content}
+          imageUrl={v.imageUrl}
+          recommendCount={v.recommendCount}
         />
       ))}
-      {data.length < 5 &&
-        [...Array(5 - data.length)].map((v, i) => (
-          <div key={i} className={styles.book}></div>
+      {data.length < 6 &&
+        [...Array(6 - data.length)].map((v, i) => (
+          <div
+            key={i}
+            className={styles.book}
+            style={{ cursor: "default" }}
+          ></div>
         ))}
     </div>
   );
