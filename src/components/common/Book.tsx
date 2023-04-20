@@ -3,23 +3,9 @@ import styles from "@/styles/Common.module.scss";
 import TextGothic from "@/components/common/TextGothic";
 import Text from "@/components/common/Text";
 import { bookData } from "@/type";
+import { CATEGORY_KO } from "@/utils";
 import icon_view from "@/img/icon_view.svg";
 import icon_like from "@/img/icon_like.svg";
-
-const CATEGORY_KO: { [key: string]: string } = {
-  HISTORY_CULTURE: "역사/예술/문화",
-  EDUCATION: "역사/예술/문화",
-  FAMILY_LIFE: "가정/요리/뷰티",
-  HOBBY: "건강/취미/레저/여행",
-  ECONOMIC_MANAGEMENT: "경제경영",
-  SCIENCE_TECHNOLOGY: "사회과학/과학",
-  COMPUTER_MOBILE: "컴퓨터/모바일",
-  LITERATURE: "문학",
-  ENTERTAINMENT: "엔터테인먼트",
-  SELF_DEVELOPMENT: "자기계발",
-  LANGUAGE: "언어",
-  OTHER: "기타",
-};
 
 export default function Book({
   isNew = false,
