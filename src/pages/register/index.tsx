@@ -89,8 +89,8 @@ export default function Register() {
     );
     if (status === 201) {
       setAlertModal({
-        title: "도서 등록이 완료되었어요!",
-        desc: "내 정보에서 등록 내역을 확인할 수 있어요.",
+        title: "도서 등록에 성공했어요!",
+        desc: "마이페이지에서 등록 내역을 확인할 수 있어요.",
         buttonText: "메인으로 돌아가기",
         isOpen: true,
         onConfirm: () => {
@@ -361,16 +361,16 @@ export default function Register() {
           </div>
           <div className={styles.buttonBox}>
             <Button
-              text="등록하기"
+              text="취소하기"
               onClick={onRegister}
-              textColor="white"
+              textColor="#1A1A1A"
               backgroundColor="#e6e6e6"
             />
             <Button
-              text="취소하기"
+              text="등록하기"
               onClick={() => {}}
-              textColor="white"
-              backgroundColor="#1a1a1a"
+              textColor="#1A1A1A"
+              backgroundColor="#00FFB2"
             />
           </div>
         </div>

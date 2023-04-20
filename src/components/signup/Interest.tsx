@@ -1,5 +1,6 @@
 import styles from "@/styles/Entrance.module.scss";
 import TextGothic from "@/components/common/TextGothic";
+import { CATEGORY_KO } from "@/utils";
 
 const CATEGORY_LIST = [
   ["HISTORY_CULTURE", "EDUCATION", "FAMILY_LIFE"],
@@ -7,21 +8,6 @@ const CATEGORY_LIST = [
   ["COMPUTER_MOBILE", "LITERATURE", "ENTERTAINMENT"],
   ["SELF_DEVELOPMENT", "LANGUAGE", "OTHER"],
 ];
-
-const CATEGORY_KO: { [key: string]: string } = {
-  HISTORY_CULTURE: "역사/예술/문화",
-  EDUCATION: "역사/예술/문화",
-  FAMILY_LIFE: "가정/요리/뷰티",
-  HOBBY: "건강/취미/레저/여행",
-  ECONOMIC_MANAGEMENT: "경제경영",
-  SCIENCE_TECHNOLOGY: "사회과학/과학",
-  COMPUTER_MOBILE: "컴퓨터/모바일",
-  LITERATURE: "문학",
-  ENTERTAINMENT: "엔터테인먼트",
-  SELF_DEVELOPMENT: "자기계발",
-  LANGUAGE: "언어",
-  OTHER: "기타",
-};
 
 interface Interest {
   interest: string[];

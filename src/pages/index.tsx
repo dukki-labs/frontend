@@ -8,20 +8,28 @@ import BasicInfo from "@/components/home/BasicInfo";
 import NewBooks from "@/components/home/NewBooks";
 import { api } from "@/utils/api";
 import icon_right from "@/img/icon_right.svg";
+import main from "@/img/main.png";
 
 export default function Home() {
   const router = useRouter();
   const [newBookList, setNewBookList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchNewBooks = async () => {
-      const { data, status } = await api.get(`/api/v1/recent/books`, {
-        params: {
-          memberId: 2,
-          size: 6,
-        },
-      });
-      setNewBookList(data.bookInfoDtoList);
+      try {
+        const { data, status } = await api.get(`/api/v1/recent/books`, {
+          params: {
+            memberId: 2,
+            size: 6,
+          },
+        });
+        setNewBookList(data.bookInfoDtoList);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchNewBooks();
   }, []);
@@ -35,7 +43,41 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div className={styles.center}></div>
+        <div className={styles.center}>
+          <div className={styles.textBox}>
+            <TextGothic
+              text="함께 즐기는 작은 도서관"
+              fontWeight={700}
+              fontSize={48}
+              lineHeight={48}
+              style={{
+                display: "block",
+                marginBottom: "16px",
+              }}
+            />
+            <TextGothic
+              text="리터러리에서 간편하게 도서를 대여하세요!"
+              fontWeight={700}
+              fontSize={48}
+              lineHeight={48}
+              style={{
+                display: "block",
+                marginBottom: "32px",
+              }}
+            />
+            <TextGothic
+              text="리터러리에서 도서를 공유해 회사 사람들과 따뜻한 교류를 쌓아보세요."
+              fontWeight={400}
+              fontSize={28}
+              lineHeight={28}
+              style={{
+                display: "block",
+                marginBottom: "32px",
+              }}
+            />
+            <Image src={main} alt="" />
+          </div>
+        </div>
         <div className={styles.infoBox}>
           <div className={styles.info} onClick={() => router.push("/register")}>
             <div className={styles.text}>
@@ -58,7 +100,7 @@ export default function Home() {
             </div>
             <Image src={icon_right} alt="" />
           </div>
-          <div className={styles.info}>
+          <div className={styles.info} onClick={() => router.push("/rental")}>
             <div className={styles.text}>
               <TextGothic
                 text="대여 신청하기"
@@ -101,8 +143,12 @@ export default function Home() {
             <Image src={icon_right} alt="" />
           </div>
         </div>
-        <BasicInfo />
-        <NewBooks data={newBookList} />
+        <section className={styles.mainSection}>
+          {!isLoading && newBookList.length === 0 && <BasicInfo />}
+          {!isLoading && newBookList.length > 0 && (
+            <NewBooks data={newBookList} />
+          )}
+        </section>
       </main>
     </>
   );
