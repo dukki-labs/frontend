@@ -25,6 +25,22 @@ export default function Home() {
           },
         });
         setNewBookList(data.bookInfoDtoList);
+
+        const { data: categoryData } = await api.get(
+          `/api/v1/categories/interest`,
+        );
+        console.log(categoryData);
+
+        const { data: categoryBookData } = await api.get(
+          `/api/v1/categories/${7}/books`,
+          {
+            params: {
+              page: 1,
+              size: 3,
+            },
+          },
+        );
+        console.log(categoryBookData);
       } catch (error) {
         console.log(error);
       } finally {

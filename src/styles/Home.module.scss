@@ -17,8 +17,8 @@
         position: absolute;
         top: 0;
         right: 0;
-        width: auto;
-        height: 100%;
+        width: 405px;
+        height: auto;
       }
     }
   }
@@ -48,7 +48,6 @@
 }
 
 .basicInfo {
-  padding: 192px 0;
   margin: 0 auto;
   width: 1440px;
   .info1 {
@@ -269,6 +268,110 @@
     color: #1a1a1a;
     &::placeholder {
       color: #999999;
+    }
+  }
+}
+
+.rentalWrapper {
+  margin: 0 auto;
+  max-width: 1440px;
+  .top {
+    margin-bottom: 96px;
+    .title {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      .option {
+        display: flex;
+        align-items: center;
+        .search {
+          display: flex;
+          align-items: center;
+          margin-right: 12px;
+        }
+        .sort {
+          display: flex;
+          align-items: center;
+        }
+        img {
+          width: 32px;
+          height: 32px;
+        }
+      }
+    }
+  }
+  .tagBox {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+    .tag {
+      padding: 10px 20px;
+      border: 1.5px solid #ededed;
+      border-radius: 8px;
+      & + .tag {
+        margin-left: 12px;
+      }
+    }
+  }
+  .bookList {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 64px;
+    .bookCard {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 32px 4px;
+      & + .bookCard {
+        border-top: 1px solid #ededed;
+      }
+      .bookBox {
+        flex: 1;
+        display: flex;
+        .bookImg {
+          margin-right: 32px;
+          min-width: 143px;
+          min-height: 204px;
+        }
+        .info {
+          padding: 12px 0;
+          .like {
+            display: flex;
+            align-items: center;
+            img {
+              width: 24px;
+              height: 24px;
+            }
+          }
+        }
+      }
+      .rentalButton {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 20px;
+        margin-left: 135px;
+        height: 44px;
+        background: #1a1a1a;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+    }
+  }
+  .pagenationBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 96px;
+    div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 48px;
+      height: 48px;
+      & + div {
+        margin-left: 8px;
+      }
     }
   }
 }
