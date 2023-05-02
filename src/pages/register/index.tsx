@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Head from "next/head";
@@ -101,6 +101,13 @@ export default function Register() {
     }
   };
 
+  const isValidation = useMemo(() => {
+    if (selectedBook.length === 0 || place === "") {
+      return false;
+    }
+    return true;
+  }, [selectedBook, place]);
+
   return (
     <>
       <Head>
@@ -116,8 +123,14 @@ export default function Register() {
             lineHeight={44}
             style={{
               display: "block",
-              marginBotton: "80px",
+              marginBottom: "16px",
             }}
+          />
+          <TextGothic
+            text="보유하고 있는 도서를 리터러리에 등록해 주세요."
+            fontWeight={400}
+            fontSize={16}
+            lineHeight={24}
           />
           <div className={styles.inputWrapper}>
             <div className={styles.register}>
@@ -312,10 +325,10 @@ export default function Register() {
                   >
                     <TextGothic
                       text={v.nameKo}
-                      fontWeight={700}
-                      fontSize={20}
-                      lineHeight={28}
-                      color={v.name === period ? "#1a1a1a" : "#999999"}
+                      fontWeight={v.name === period ? 700 : 400}
+                      fontSize={16}
+                      lineHeight={24}
+                      color="#1a1a1a"
                     />
                   </div>
                 ))}
@@ -341,7 +354,7 @@ export default function Register() {
             </div>
             <div className={styles.register}>
               <TextGothic
-                text="첨부 내용"
+                text="전달 내용"
                 fontWeight={700}
                 fontSize={20}
                 lineHeight={28}
@@ -354,7 +367,7 @@ export default function Register() {
                 <textarea
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
-                  placeholder="추가로 알려주고 싶은 내용이 있나요?"
+                  placeholder="추가로 전달하고 싶은 내용이 있나요?"
                 />
               </div>
             </div>
@@ -362,16 +375,26 @@ export default function Register() {
           <div className={styles.buttonBox}>
             <Button
               text="취소하기"
-              onClick={onRegister}
+              onClick={() => router.back()}
               textColor="#1A1A1A"
-              backgroundColor="#e6e6e6"
+              backgroundColor="#ffffff"
+              borderColor="#EDEDED"
             />
-            <Button
-              text="등록하기"
-              onClick={() => {}}
-              textColor="#1A1A1A"
-              backgroundColor="#00FFB2"
-            />
+            {isValidation ? (
+              <Button
+                text="등록하기"
+                onClick={onRegister}
+                textColor="#1A1A1A"
+                backgroundColor="#00FFB2"
+              />
+            ) : (
+              <Button
+                text="등록하기"
+                onClick={() => {}}
+                textColor="#ffffff"
+                backgroundColor="#EDEDED"
+              />
+            )}
           </div>
         </div>
       </main>
