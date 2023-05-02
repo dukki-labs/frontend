@@ -6,6 +6,7 @@ interface Button {
   onClick: () => void;
   textColor: string;
   backgroundColor: string;
+  borderColor?: string;
 }
 
 export default function Button({
@@ -13,6 +14,7 @@ export default function Button({
   onClick,
   textColor = "#1a1a1a",
   backgroundColor,
+  borderColor,
 }: Button) {
   return (
     <div
@@ -20,6 +22,9 @@ export default function Button({
       onClick={onClick}
       style={{
         background: `${backgroundColor}`,
+        borderWidth: "1.5px",
+        borderStyle: "solid",
+        borderColor: borderColor ? borderColor : backgroundColor,
       }}
     >
       <TextGothic
