@@ -2,23 +2,35 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 160px 0;
   width: 100%;
-  height: 100%;
   .signinWrapper {
-    width: 640px;
+    width: 480px;
     .title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       margin-bottom: 64px;
+      img {
+        width: 202px;
+        height: 40px;
+      }
     }
     .singinBox {
       .inputBox {
         display: flex;
         justify-content: center;
         align-items: center;
+        padding: 20px 24px;
         width: 100%;
         height: 64px;
-        border-bottom: 1.5px solid #e6e6e6;
+        border: 1.5px solid #ededed;
+        border-radius: 8px;
         &.on {
-          border-bottom: 1.5px solid #1a1a1a;
+          border: 1.5px solid #1a1a1a;
+        }
+        &.error {
+          border: 1.5px solid #ff007a;
         }
         & + .inputBox {
           margin-top: 16px;
@@ -28,44 +40,51 @@
           border: none;
           outline: none;
           font-family: NexonLight;
-          font-size: 20px;
-          line-height: 28px;
+          font-size: 16px;
+          line-height: 24px;
           color: #1a1a1a;
           &::placeholder {
             color: #999999;
           }
         }
+        img {
+          width: 30px;
+          height: 30px;
+        }
       }
-      .button {
+      .signinButton {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 48px 0 20px;
-        height: 72px;
-        background: #e6e6e6;
-        border-radius: 4px;
+        margin: 64px 0 16px;
+        height: 64px;
+        background: #ededed;
+        border-radius: 8px;
         &.on {
           cursor: pointer;
           background: #1a1a1a;
-        }
-      }
-      .lost {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 48px;
-        text-decoration: underline;
-        span {
-          cursor: pointer;
         }
       }
       .signupButton {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 72px;
+        margin-bottom: 32px;
+        height: 64px;
         background: #00ffb2;
-        border-radius: 4px;
+        border-radius: 8px;
         cursor: pointer;
+        img {
+          margin-right: 10px;
+        }
+      }
+      .lost {
+        display: flex;
+        justify-content: center;
+        text-decoration: underline;
+        span {
+          cursor: pointer;
+        }
       }
     }
   }

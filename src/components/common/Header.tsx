@@ -8,7 +8,7 @@ import icon_alarm from "@/img/icon_alarm.svg";
 import icon_profile from "@/img/icon_profile.svg";
 import icon_search from "@/img/icon_search.svg";
 
-const WITHOUT_HEADER = ["/signin", "/signup", "/signup/done"];
+const WITHOUT_HEADER = ["/signup", "/signup/done"];
 
 export default function Header() {
   const router = useRouter();
@@ -29,17 +29,23 @@ export default function Header() {
         />
       </div>
       <header className={styles.header}>
-        <div className={styles.left}>
-          <Image src={logo} alt="" />
-        </div>
-        <div className={styles.right}>
-          <Image src={icon_alarm} alt="" />
-          <Image
-            src={icon_profile}
-            alt=""
-            onClick={() => router.push("/signin")}
-          />
-          <Image src={icon_search} alt="" />
+        <div className={styles.content}>
+          <div className={styles.left}>
+            <Image src={logo} alt="" />
+          </div>
+          {router.asPath === "/signin" ? (
+            <></>
+          ) : (
+            <div className={styles.right}>
+              <Image src={icon_alarm} alt="" />
+              <Image
+                src={icon_profile}
+                alt=""
+                onClick={() => router.push("/signin")}
+              />
+              <Image src={icon_search} alt="" />
+            </div>
+          )}
         </div>
       </header>
     </>
