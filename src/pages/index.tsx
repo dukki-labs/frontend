@@ -7,6 +7,7 @@ import TextGothic from "@/components/common/TextGothic";
 import BasicInfo from "@/components/home/BasicInfo";
 import NewBooks from "@/components/home/NewBooks";
 import { api } from "@/utils/api";
+import UseMemberId from "@/utils/useMemberId";
 import icon_right from "@/img/icon_right.svg";
 import main from "@/img/main.png";
 
@@ -14,13 +15,15 @@ export default function Home() {
   const router = useRouter();
   const [newBookList, setNewBookList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { memberId } = UseMemberId();
 
   useEffect(() => {
+    if (memberId === 0) return;
     const fetchNewBooks = async () => {
       try {
         const { data, status } = await api.get(`/api/v1/recent/books`, {
           params: {
-            memberId: 2,
+            memberId: memberId,
             size: 6,
           },
         });
@@ -32,7 +35,7 @@ export default function Home() {
         console.log(categoryData);
 
         const { data: categoryBookData } = await api.get(
-          `/api/v1/categories/${7}/books`,
+          `/api/v1/categories/${6}/books`,
           {
             params: {
               page: 1,
@@ -48,7 +51,17 @@ export default function Home() {
       }
     };
     fetchNewBooks();
-  }, []);
+  }, [memberId]);
+
+  const onRegister = () => {
+    if (memberId === 0) return;
+    router.push("/register");
+  };
+
+  const onRental = () => {
+    if (memberId === 0) return;
+    router.push("/rental");
+  };
 
   return (
     <>
@@ -95,7 +108,7 @@ export default function Home() {
           </div>
         </div>
         <div className={styles.infoBox}>
-          <div className={styles.info} onClick={() => router.push("/register")}>
+          <div className={styles.info} onClick={onRegister}>
             <div className={styles.text}>
               <TextGothic
                 text="도서 등록하기"
@@ -116,7 +129,7 @@ export default function Home() {
             </div>
             <Image src={icon_right} alt="" />
           </div>
-          <div className={styles.info} onClick={() => router.push("/rental")}>
+          <div className={styles.info} onClick={onRental}>
             <div className={styles.text}>
               <TextGothic
                 text="대여 신청하기"
@@ -160,6 +173,7 @@ export default function Home() {
           </div>
         </div>
         <section className={styles.mainSection}>
+          {memberId === 0 && <BasicInfo />}
           {!isLoading && newBookList.length === 0 && <BasicInfo />}
           {!isLoading && newBookList.length > 0 && (
             <NewBooks data={newBookList} />
