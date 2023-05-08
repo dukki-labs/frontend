@@ -7,6 +7,7 @@ import Terms from "@/components/signup/Terms";
 import UserInfo from "@/components/signup/UserInfo";
 import Interest from "@/components/signup/Interest";
 import { api } from "@/utils/api";
+import UseAlertModal from "@/utils/useAlertModal";
 
 export default function SignUp() {
   const router = useRouter();
@@ -19,6 +20,7 @@ export default function SignUp() {
     nickName: "",
   });
   const [interest, setInterest] = useState<string[]>([]);
+  const { alertModal, setAlertModal } = UseAlertModal();
 
   const onClickTerm = (idx: number) => {
     if (idx === 3) {
@@ -42,29 +44,42 @@ export default function SignUp() {
   };
 
   const onClickButton = async () => {
-    if (step === 1) {
-      setStep(2);
-      return;
-    }
-    if (step === 3) {
-      const body = {
-        memberId: userInfo.memberId,
-        nickName: userInfo.nickName,
-        email: userInfo.email,
-        password: userInfo.password,
-        accessRoles: ["USER"],
-        serviceTerms: terms[0],
-        privacyTerms: terms[1],
-        serviceAlarm: terms[2],
-        bookCategoryList: interest,
-      };
-      console.log(body);
-      const { status } = await api.post(`/api/v1/account/sign-up`, {
-        ...body,
-      });
-      if (status === 201) {
-        router.replace("/signup/done");
+    try {
+      if (step === 1) {
+        setStep(2);
+        return;
       }
+      if (step === 2) {
+        const body = {
+          memberId: userInfo.memberId,
+          nickName: userInfo.nickName,
+          email: userInfo.email,
+          password: userInfo.password,
+          accessRoles: ["USER"],
+          serviceTerms: terms[0],
+          privacyTerms: terms[1],
+          serviceAlarm: terms[2],
+          bookCategoryList: interest,
+        };
+        // console.log(body);
+        const { status } = await api.post(`/api/v1/account/sign-up`, {
+          ...body,
+        });
+        if (status === 201) {
+          router.replace(`/signup/done?nickname=${userInfo.nickName}`);
+        }
+      }
+    } catch (error: any) {
+      const errorMessage = error?.response?.data?.errorMessage;
+      setAlertModal({
+        title: "안내",
+        desc: errorMessage,
+        buttonText: "확인",
+        isOpen: true,
+        onConfirm: () => {
+          setAlertModal((prev) => ({ ...prev, isOpen: false }));
+        },
+      });
     }
   };
 
@@ -75,7 +90,7 @@ export default function SignUp() {
       password: p,
       nickName: n,
     });
-    setStep(3);
+    setStep(2);
   };
 
   return (
@@ -85,23 +100,16 @@ export default function SignUp() {
         <meta name="description" content="회원가입" />
       </Head>
       <main className={styles.signup}>
-        <section>
-          <div className={styles.bar}>
-            <div className={styles.progress}></div>
-            {step === 1 && <div className={styles.step} />}
-            {step === 2 && <div className={`${styles.step} ${styles.two}`} />}
-            {step === 3 && <div className={`${styles.step} ${styles.three}`} />}
-          </div>
+        <section className={styles.section}>
           <Title step={step} />
           {step === 1 && (
-            <Terms
+            <UserInfo
               terms={terms}
               onClickTerm={onClickTerm}
-              onClickButton={onClickButton}
+              onClickButton={onClickUserInfo}
             />
           )}
-          {step === 2 && <UserInfo onClickButton={onClickUserInfo} />}
-          {step === 3 && (
+          {step === 2 && (
             <Interest
               interest={interest}
               setInterest={setInterest}

@@ -3,10 +3,12 @@ import TextGothic from "@/components/common/TextGothic";
 import { CATEGORY_KO } from "@/utils";
 
 const CATEGORY_LIST = [
-  ["HISTORY_CULTURE", "EDUCATION", "FAMILY_LIFE"],
-  ["HOBBY", "ECONOMIC_MANAGEMENT", "SCIENCE_TECHNOLOGY"],
-  ["COMPUTER_MOBILE", "LITERATURE", "ENTERTAINMENT"],
-  ["SELF_DEVELOPMENT", "LANGUAGE", "OTHER"],
+  ["HISTORY_CULTURE", "EDUCATION"],
+  ["FAMILY_LIFE", "HOBBY"],
+  ["ECONOMIC_MANAGEMENT", "SCIENCE_TECHNOLOGY"],
+  ["COMPUTER_MOBILE", "LITERATURE"],
+  ["ENTERTAINMENT", "SELF_DEVELOPMENT"],
+  ["LANGUAGE", "OTHER"],
 ];
 
 interface Interest {
@@ -41,15 +43,16 @@ export default function Interest({
               key={idx}
               className={`${styles.card} ${
                 interest.includes(v) ? styles.on : ""
+              } ${
+                interest.length === 4 && !interest.includes(v) && styles.off
               }`}
               onClick={() => onClickInterest(v)}
             >
               <TextGothic
-                text={`#${CATEGORY_KO[v]}`}
+                text={CATEGORY_KO[v]}
                 fontWeight={interest.includes(v) ? 700 : 400}
-                fontSize={20}
-                lineHeight={28}
-                color={interest.includes(v) ? "#1a1a1a" : "#999999"}
+                fontSize={16}
+                lineHeight={24}
               />
             </div>
           ))}
@@ -64,7 +67,7 @@ export default function Interest({
           fontWeight={700}
           fontSize={20}
           lineHeight={28}
-          color={interest.length > 0 ? "#1a1a1a" : "white"}
+          color="white"
         />
       </div>
     </div>

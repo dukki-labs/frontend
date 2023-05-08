@@ -1,8 +1,12 @@
 import { useState } from "react";
+import Image from "next/image";
 import Text from "@/components/common/Text";
 import TextGothic from "@/components/common/TextGothic";
 import styles from "@/styles/Entrance.module.scss";
 import { api } from "@/utils/api";
+import UseAlertModal from "@/utils/useAlertModal";
+import icon_check_on from "@/img/icon_check_on.svg";
+import icon_check_off from "@/img/icon_check_off.svg";
 
 interface Input {
   type: string;
@@ -20,7 +24,7 @@ const Input = ({
   disabled = false,
 }: Input) => {
   return (
-    <div className={styles.inputBox}>
+    <div className={styles.input}>
       <input
         type={type}
         value={value}
@@ -39,9 +43,15 @@ interface UserInfo {
     password: string,
     nickName: string,
   ) => void;
+  terms: boolean[];
+  onClickTerm: (i: number) => void;
 }
 
-export default function UserInfo({ onClickButton }: UserInfo) {
+export default function UserInfo({
+  terms,
+  onClickTerm,
+  onClickButton,
+}: UserInfo) {
   const [email, setEmail] = useState("");
   const [authNumber, setAuthNumber] = useState("");
   const [password, setPassword] = useState("");
@@ -49,27 +59,63 @@ export default function UserInfo({ onClickButton }: UserInfo) {
   const [nickName, setNickName] = useState("");
   const [isAuthDone, setIsAuthDone] = useState(false);
   const [tempMemberId, setTempMemberId] = useState(0);
+  const { alertModal, setAlertModal } = UseAlertModal();
 
   const onClickSendAuthNum = async () => {
-    const { data, status } = await api.post(`/api/v1/account/send-code`, {
-      email,
-    });
-    if (status === 200) {
-      setTempMemberId(data.memberId);
+    try {
+      const { data, status } = await api.post(`/api/v1/account/send-code`, {
+        email,
+      });
+      if (status === 200) {
+        setTempMemberId(data.memberId);
+        setAlertModal({
+          title: "인증 번호가 발송되었어요!",
+          desc: "이메일로 발송된 인증 번호를 확인해 주세요.",
+          buttonText: "확인",
+          isOpen: true,
+          onConfirm: () => {
+            setAlertModal((prev) => ({ ...prev, isOpen: false }));
+          },
+        });
+      }
+    } catch (error: any) {
+      const errorMessage = error?.response?.data?.errorMessage;
+      setAlertModal({
+        title: "안내",
+        desc: errorMessage,
+        buttonText: "확인",
+        isOpen: true,
+        onConfirm: () => {
+          setAlertModal((prev) => ({ ...prev, isOpen: false }));
+        },
+      });
     }
   };
 
   const onChangeAuthNumber = async (v: string) => {
-    if (v.length > 6) return;
-    setAuthNumber(v);
-    if (v.length === 6) {
-      const { status } = await api.post(`/api/v1/account/check-auth-code`, {
-        memberId: tempMemberId,
-        authCode: v,
-      });
-      if (status === 200) {
-        setIsAuthDone(true);
+    try {
+      if (v.length > 6) return;
+      setAuthNumber(v);
+      if (v.length === 6) {
+        const { status } = await api.post(`/api/v1/account/check-auth-code`, {
+          memberId: tempMemberId,
+          authCode: v,
+        });
+        if (status === 200) {
+          setIsAuthDone(true);
+        }
       }
+    } catch (error: any) {
+      const errorMessage = error?.response?.data?.errorMessage;
+      setAlertModal({
+        title: "안내",
+        desc: errorMessage,
+        buttonText: "확인",
+        isOpen: true,
+        onConfirm: () => {
+          setAlertModal((prev) => ({ ...prev, isOpen: false }));
+        },
+      });
     }
   };
 
@@ -83,8 +129,8 @@ export default function UserInfo({ onClickButton }: UserInfo) {
         <TextGothic
           text="이메일"
           fontWeight={700}
-          fontSize={20}
-          lineHeight={28}
+          fontSize={16}
+          lineHeight={24}
           style={{
             display: "block",
             marginBottom: "16px",
@@ -96,32 +142,38 @@ export default function UserInfo({ onClickButton }: UserInfo) {
             value={email}
             onChange={setEmail}
             placeholder="이메일 입력"
-            disabled={false}
+            disabled={isAuthDone}
           />
           <div
             className={`${styles.validationButton} ${
               email.includes("@") && email.includes(".") ? styles.on : ""
             }`}
-            onClick={onClickSendAuthNum}
+            onClick={
+              email.includes("@") && email.includes(".")
+                ? onClickSendAuthNum
+                : () => {}
+            }
           >
             <TextGothic
               text="인증"
               fontWeight={700}
-              fontSize={20}
-              lineHeight={28}
+              fontSize={16}
+              lineHeight={24}
               color="white"
             />
           </div>
         </div>
-        <div className={styles.authNumber}>
-          <Input
-            type="text"
-            value={authNumber}
-            onChange={onChangeAuthNumber}
-            placeholder="이메일 인증 번호"
-            disabled={tempMemberId === 0 ? true : false}
-          />
-        </div>
+        {tempMemberId !== 0 && (
+          <div className={styles.authNumber}>
+            <Input
+              type="text"
+              value={authNumber}
+              onChange={onChangeAuthNumber}
+              placeholder="이메일 인증 번호 입력"
+              disabled={isAuthDone}
+            />
+          </div>
+        )}
       </div>
       <div className={styles.infoBox}>
         <TextGothic
@@ -168,25 +220,83 @@ export default function UserInfo({ onClickButton }: UserInfo) {
           disabled={false}
         />
       </div>
-      <div
-        className={`${styles.button} ${
-          email && isAuthDone && password === passwordCheck && nickName
-            ? styles.on
-            : ""
-        }`}
-        onClick={onClickUserInfo}
-      >
-        <Text
-          text="다음"
-          fontSize={24}
-          lineHeight={32}
-          color={
-            email && isAuthDone && password === passwordCheck && nickName
-              ? "#1a1a1a"
-              : "white"
-          }
-        />
+      <div className={styles.divider} />
+      <div className={styles.signupWrapper}>
+        <div className={styles.allAgree}>
+          <Image
+            src={
+              terms[0] && terms[1] && terms[2] ? icon_check_on : icon_check_off
+            }
+            alt=""
+            onClick={() => onClickTerm(3)}
+          />
+          <Text
+            text="이용 약관에 모두 동의할게요."
+            fontWeight={400}
+            fontSize={16}
+            lineHeight={28}
+          />
+        </div>
+        <div className={styles.terms}>
+          <Image
+            src={terms[0] ? icon_check_on : icon_check_off}
+            alt=""
+            onClick={() => onClickTerm(0)}
+          />
+          <Text
+            text="[필수] 이용 약관에 모두 동의할게요."
+            fontWeight={400}
+            fontSize={16}
+            lineHeight={28}
+          />
+        </div>
+        <div className={styles.terms}>
+          <Image
+            src={terms[1] ? icon_check_on : icon_check_off}
+            alt=""
+            onClick={() => onClickTerm(1)}
+          />
+          <Text
+            text="[필수] 개인정보 처리 방침에 동의할게요."
+            fontWeight={400}
+            fontSize={16}
+            lineHeight={28}
+          />
+        </div>
+        <div className={styles.terms}>
+          <Image
+            src={terms[2] ? icon_check_on : icon_check_off}
+            alt=""
+            onClick={() => onClickTerm(2)}
+          />
+          <Text
+            text="[선택] 이메일 수신에 동의할게요."
+            fontWeight={400}
+            fontSize={16}
+            lineHeight={28}
+          />
+        </div>
       </div>
+      {email &&
+      email.includes("@") &&
+      email.includes(".") &&
+      isAuthDone &&
+      password === passwordCheck &&
+      password.length > 7 &&
+      nickName.length > 3 &&
+      terms[0] &&
+      terms[1] ? (
+        <div
+          className={`${styles.button} ${styles.on}`}
+          onClick={onClickUserInfo}
+        >
+          <Text text="다음" fontSize={24} lineHeight={32} color="white" />
+        </div>
+      ) : (
+        <div className={styles.button}>
+          <Text text="다음" fontSize={24} lineHeight={32} color="white" />
+        </div>
+      )}
     </div>
   );
 }
