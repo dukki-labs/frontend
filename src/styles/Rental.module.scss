@@ -1,0 +1,101 @@
+.main {
+  padding: 96px 0;
+  .detailInfo {
+    display: flex;
+    margin: 0 auto 160px;
+    width: 1440px;
+    .left {
+      margin-right: 64px;
+    }
+    .right {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .divider {
+        margin: 32px 0;
+        border-top: 1.5px solid #ededed;
+      }
+      .etc + .etc {
+        margin-top: 8px;
+      }
+      .buttonBox {
+        display: flex;
+        .likeButton {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-right: 12px;
+          width: 240px;
+          height: 72px;
+          background: #ffffff;
+          border: 1.5px solid #ededed;
+          border-radius: 8px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  .detailReview {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 1440px;
+    .reviewList {
+      margin-bottom: 64px;
+      .review {
+        display: flex;
+        justify-content: space-between;
+        padding: 32px 4px;
+        border-top: 1.5px solid #ededed;
+      }
+      .emptyReview {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 268px;
+      }
+    }
+  }
+}
+
+.rentalInfo {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 1440px;
+  .title {
+    margin-bottom: 96px;
+  }
+  .book {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 64px;
+    .bookBox {
+      display: flex;
+      padding: 32px 40px;
+      border: 1.5px solid #ededed;
+      border-radius: 8px;
+      .right {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 32px;
+      }
+    }
+  }
+  .rental {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 96px;
+    .rentalBox {
+      display: flex;
+      flex-direction: column;
+      padding: 32px 40px;
+      border: 1.5px solid #ededed;
+      border-radius: 8px;
+      .etc + .etc {
+        margin-top: 8px;
+      }
+    }
+  }
+}

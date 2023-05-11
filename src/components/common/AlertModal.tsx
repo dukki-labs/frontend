@@ -9,7 +9,7 @@ export default function AlertModal() {
 
   const onClose = () => {
     setAlertModal((prev) => ({ ...prev, isOpen: false }));
-    alertModal.onConfirm();
+    // alertModal.onConfirm();
   };
 
   if (typeof window === "undefined") {
@@ -39,15 +39,43 @@ export default function AlertModal() {
               color="#999999"
             />
             <div className={styles.buttonBox}>
-              <div className={styles.oneButton} onClick={alertModal.onConfirm}>
-                <TextGothic
-                  text={alertModal.buttonText}
-                  fontWeight={700}
-                  fontSize={20}
-                  lineHeight={28}
-                  color="white"
-                />
-              </div>
+              {alertModal.isTwoButton ? (
+                <div className={styles.twoButton}>
+                  <div className={styles.cancel} onClick={onClose}>
+                    <TextGothic
+                      text="취소"
+                      fontWeight={700}
+                      fontSize={20}
+                      lineHeight={28}
+                    />
+                  </div>
+                  <div
+                    className={styles.confirm}
+                    onClick={alertModal.onConfirm}
+                  >
+                    <TextGothic
+                      text={alertModal.buttonText}
+                      fontWeight={700}
+                      fontSize={20}
+                      lineHeight={28}
+                      color="white"
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div
+                  className={styles.oneButton}
+                  onClick={alertModal.onConfirm}
+                >
+                  <TextGothic
+                    text={alertModal.buttonText}
+                    fontWeight={700}
+                    fontSize={20}
+                    lineHeight={28}
+                    color="white"
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>

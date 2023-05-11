@@ -152,7 +152,44 @@
           border-radius: 12px;
           cursor: pointer;
         }
+        .twoButton {
+          display: flex;
+          div {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            padding: 22px;
+            width: 100%;
+            border-radius: 12px;
+            cursor: pointer;
+          }
+          .cancel {
+            background: #ffffff;
+            margin-right: 12px;
+            border: 1.5px solid #ededed;
+          }
+          .confirm {
+            background: #1a1a1a;
+          }
+        }
       }
+    }
+  }
+}
+
+.pagenation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    & + div {
+      margin-left: 8px;
     }
   }
 }

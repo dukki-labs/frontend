@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import Image from "next/image";
 import styles from "@/styles/Common.module.scss";
 import TextGothic from "@/components/common/TextGothic";
@@ -8,6 +9,7 @@ import icon_view from "@/img/icon_view.svg";
 import icon_like from "@/img/icon_like.svg";
 
 export default function Book({
+  id,
   isNew = false,
   title,
   category,
@@ -15,8 +17,10 @@ export default function Book({
   imageUrl,
   recommendCount,
 }: bookData) {
+  const router = useRouter();
+
   return (
-    <div className={styles.book}>
+    <div className={styles.book} onClick={() => router.push(`/rental/${id}`)}>
       <Image
         className={styles.bookImg}
         src={imageUrl}

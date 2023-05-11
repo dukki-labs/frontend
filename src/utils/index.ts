@@ -12,3 +12,10 @@ export const CATEGORY_KO: { [key: string]: string } = {
   LANGUAGE: "언어",
   OTHER: "기타",
 };
+
+export const DEADLINE_KO: { [key: string]: string } = {
+  ONE_WEEK: "1주",
+  TWO_WEEK: "2주",
+  THREE_WEEK: "3주",
+  FOUR_WEEK: "4주",
+};

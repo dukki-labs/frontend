@@ -13,6 +13,7 @@ export default function BookBox({ data, isNew }: BookBox) {
       {data.map((v, i) => (
         <Book
           key={i}
+          id={v.id}
           isNew={isNew}
           title={v.title}
           category={v.category}

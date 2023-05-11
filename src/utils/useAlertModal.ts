@@ -4,6 +4,7 @@ export const alertModalState = atom({
   key: "alertModalState",
   default: {
     isOpen: false,
+    isTwoButton: false,
     title: "Title",
     desc: "Desc",
     buttonText: "확인",
