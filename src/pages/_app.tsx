@@ -8,12 +8,12 @@ import AlertModal from "@/components/common/AlertModal";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Header />
       <RecoilRoot>
+        <Header />
         <AlertModal />
         <Component {...pageProps} />
+        <Footer />
       </RecoilRoot>
-      <Footer />
     </>
   );
 }

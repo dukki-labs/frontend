@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import styles from "@/styles/Common.module.scss";
 import TextGothic from "@/components/common/TextGothic";
+import UseMemberId from "@/utils/useMemberId";
 import logo from "@/img/logo.png";
 import icon_alarm from "@/img/icon_alarm.svg";
 import icon_profile from "@/img/icon_profile.svg";
@@ -9,6 +10,7 @@ import icon_search from "@/img/icon_search.svg";
 
 export default function Header() {
   const router = useRouter();
+  const { memberId } = UseMemberId();
 
   return (
     <>
@@ -35,7 +37,13 @@ export default function Header() {
               <Image
                 src={icon_profile}
                 alt=""
-                onClick={() => router.push("/signin")}
+                onClick={() => {
+                  if (memberId === 0) {
+                    router.push("/signin");
+                    return;
+                  }
+                  router.push("/my");
+                }}
               />
               <Image src={icon_search} alt="" />
             </div>

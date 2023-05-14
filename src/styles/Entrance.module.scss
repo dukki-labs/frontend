@@ -170,65 +170,64 @@
       }
     }
   }
-
-  .interest {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    .box {
-      display: flex;
-      .card {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 64px;
-        border: 1.5px solid #e6e6e6;
-        border-radius: 8px;
-        cursor: pointer;
-        & + .card {
-          margin-left: 12px;
-        }
-        &.on {
-          border: 1.5px solid #1a1a1a;
-        }
-        &.on:hover {
-          background: white;
-        }
-        &:hover {
-          border: 1.5px solid #1a1a1a;
-        }
-        &.off {
-          background: rgba(237, 237, 237, 0.3);
-        }
-        &.off:hover {
-          border: 1.5px solid #e6e6e6;
-          cursor: default;
-        }
-      }
-      & + .box {
-        margin-top: 16px;
-      }
-    }
-    .button {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 96px;
-      width: 100%;
-      height: 80px;
-      background: #e6e6e6;
-      border-radius: 8px;
-    }
-    .button.on {
-      background: #1a1a1a;
-      cursor: pointer;
-    }
-  }
-
   .done {
     width: 480px;
     margin: 160px 0 368px;
+  }
+}
+
+.interest {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  .box {
+    display: flex;
+    .card {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 64px;
+      border: 1.5px solid #e6e6e6;
+      border-radius: 8px;
+      cursor: pointer;
+      & + .card {
+        margin-left: 12px;
+      }
+      &.on {
+        border: 1.5px solid #1a1a1a;
+      }
+      &.on:hover {
+        background: white;
+      }
+      &:hover {
+        border: 1.5px solid #1a1a1a;
+      }
+      &.off {
+        background: rgba(237, 237, 237, 0.3);
+      }
+      &.off:hover {
+        border: 1.5px solid #e6e6e6;
+        cursor: default;
+      }
+    }
+    & + .box {
+      margin-top: 16px;
+    }
+  }
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 96px;
+    width: 100%;
+    height: 80px;
+    background: #e6e6e6;
+    border-radius: 8px;
+  }
+  .button.on {
+    background: #1a1a1a;
+    cursor: pointer;
   }
 }
 
