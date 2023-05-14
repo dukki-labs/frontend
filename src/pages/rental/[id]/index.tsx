@@ -45,16 +45,32 @@ export default function Detail() {
 
   const onRental = async (bookId: number) => {
     setAlertModal({
+      ...alertModal,
       title: "이 도서로 대여 신청할까요?",
       desc: "대여 기간 동안 다른 도서는 대여할 수 없어요.",
       buttonText: "신청하기",
+      cancelText: "취소",
       isOpen: true,
       isTwoButton: true,
       onConfirm: async () => {
         setAlertModal((prev) => ({ ...prev, isOpen: false }));
-        const { status } = await api.post(`/api/v1/books/${bookId}/rental`);
-        if (status === 200) {
-          router.push(`/rental/${bookId}/done`);
+        try {
+          const { status } = await api.post(`/api/v1/books/${bookId}/rental`);
+          if (status === 200) {
+            router.push(`/rental/${bookId}/done`);
+          }
+        } catch (error: any) {
+          const errorMessage = error?.response?.data?.errorMessage;
+          setAlertModal({
+            ...alertModal,
+            title: "도서 대여 처리에 실패했어요.",
+            desc: errorMessage,
+            buttonText: "확인",
+            isOpen: true,
+            onConfirm: () => {
+              setAlertModal((prev) => ({ ...prev, isOpen: false }));
+            },
+          });
         }
       },
     });

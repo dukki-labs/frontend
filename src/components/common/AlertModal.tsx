@@ -9,7 +9,7 @@ export default function AlertModal() {
 
   const onClose = () => {
     setAlertModal((prev) => ({ ...prev, isOpen: false }));
-    // alertModal.onConfirm();
+    alertModal.onCancel();
   };
 
   if (typeof window === "undefined") {
@@ -18,7 +18,10 @@ export default function AlertModal() {
 
   return ReactDOM.createPortal(
     alertModal.isOpen ? (
-      <div className={styles.alertModal} onClick={onClose}>
+      <div
+        className={styles.alertModal}
+        onClick={() => setAlertModal((prev) => ({ ...prev, isOpen: false }))}
+      >
         <div className={styles.modal_main} onClick={(e) => e.stopPropagation()}>
           <div className={styles.body}>
             <TextGothic
@@ -43,7 +46,7 @@ export default function AlertModal() {
                 <div className={styles.twoButton}>
                   <div className={styles.cancel} onClick={onClose}>
                     <TextGothic
-                      text="취소"
+                      text={alertModal.cancelText}
                       fontWeight={700}
                       fontSize={20}
                       lineHeight={28}

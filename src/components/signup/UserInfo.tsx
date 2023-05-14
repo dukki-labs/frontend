@@ -69,6 +69,7 @@ export default function UserInfo({
       if (status === 200) {
         setTempMemberId(data.memberId);
         setAlertModal({
+          ...alertModal,
           title: "인증 번호가 발송되었어요!",
           desc: "이메일로 발송된 인증 번호를 확인해 주세요.",
           buttonText: "확인",
@@ -81,6 +82,7 @@ export default function UserInfo({
     } catch (error: any) {
       const errorMessage = error?.response?.data?.errorMessage;
       setAlertModal({
+        ...alertModal,
         title: "안내",
         desc: errorMessage,
         buttonText: "확인",
@@ -108,6 +110,7 @@ export default function UserInfo({
     } catch (error: any) {
       const errorMessage = error?.response?.data?.errorMessage;
       setAlertModal({
+        ...alertModal,
         title: "안내",
         desc: errorMessage,
         buttonText: "확인",

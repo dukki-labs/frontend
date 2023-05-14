@@ -143,18 +143,27 @@ export default function Register() {
                   </div>
                 </div>
               </div>
-              <div
-                className={styles.rentalButton}
-                onClick={() => router.push(`/rental/${v.id}`)}
-              >
-                <TextGothic
-                  text="대여하기"
-                  fontWeight={700}
-                  fontSize={16}
-                  lineHeight={24}
-                  color="#fff"
-                />
-              </div>
+              {v.rentalUseYn == "Y" ? (
+                <div
+                  className={styles.rentalButton}
+                  onClick={() => router.push(`/rental/${v.id}`)}
+                >
+                  <TextGothic
+                    text="신청하기"
+                    fontWeight={700}
+                    fontSize={16}
+                    lineHeight={24}
+                    color="#fff"
+                  />
+                </div>
+              ) : (
+                <div
+                  style={{
+                    marginLeft: "135px",
+                    width: "101px",
+                  }}
+                ></div>
+              )}
             </div>
           ))}
         </div>

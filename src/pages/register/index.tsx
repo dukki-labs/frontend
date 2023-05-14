@@ -89,6 +89,7 @@ export default function Register() {
     );
     if (status === 201) {
       setAlertModal({
+        ...alertModal,
         title: "도서 등록에 성공했어요!",
         desc: "마이페이지에서 등록 내역을 확인할 수 있어요.",
         buttonText: "메인으로 돌아가기",

@@ -54,13 +54,27 @@ export default function Home() {
   }, [memberId]);
 
   const onRegister = () => {
-    if (memberId === 0) return;
+    if (memberId === 0) {
+      router.push("/signin");
+      return;
+    }
     router.push("/register");
   };
 
   const onRental = () => {
-    if (memberId === 0) return;
+    if (memberId === 0) {
+      router.push("/signin");
+      return;
+    }
     router.push("/rental");
+  };
+
+  const onReturn = () => {
+    if (memberId === 0) {
+      router.push("/signin");
+      return;
+    }
+    router.push("/return");
   };
 
   return (
@@ -150,7 +164,7 @@ export default function Home() {
             </div>
             <Image src={icon_right} alt="" />
           </div>
-          <div className={styles.info}>
+          <div className={styles.info} onClick={onReturn}>
             <div className={styles.text}>
               <TextGothic
                 text="도서 반납하기"

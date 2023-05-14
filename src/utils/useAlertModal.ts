@@ -8,7 +8,9 @@ export const alertModalState = atom({
     title: "Title",
     desc: "Desc",
     buttonText: "확인",
+    cancelText: "취소",
     onConfirm: () => {},
+    onCancel: () => {},
   },
 });
 

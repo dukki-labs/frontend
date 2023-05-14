@@ -72,6 +72,7 @@ export default function SignUp() {
     } catch (error: any) {
       const errorMessage = error?.response?.data?.errorMessage;
       setAlertModal({
+        ...alertModal,
         title: "안내",
         desc: errorMessage,
         buttonText: "확인",

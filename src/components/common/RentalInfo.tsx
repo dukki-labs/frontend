@@ -16,6 +16,10 @@ interface RentalInfo {
   deadLine: string;
   returnLocation: string;
   review: string;
+  providerNickName?: string;
+  value?: string;
+  setValue?: (v: string) => void;
+  onSubmit?: () => void;
 }
 
 export default function RentalInfo({
@@ -28,6 +32,10 @@ export default function RentalInfo({
   deadLine,
   returnLocation,
   review,
+  providerNickName,
+  value,
+  setValue,
+  onSubmit,
 }: RentalInfo) {
   const router = useRouter();
 
@@ -48,7 +56,7 @@ export default function RentalInfo({
           text={
             type === "rental"
               ? "대여 중 사람들과 따뜻한 한 마디를 나누어 보세요."
-              : "도서를 반납해 주세요."
+              : `${providerNickName}님에게 대여했던 도서를 반납해 주세요.`
           }
           fontWeight={400}
           fontSize={16}
@@ -172,12 +180,54 @@ export default function RentalInfo({
           </div>
         </div>
       </div>
-      <Button
-        text="메인으로 돌아가기"
-        textColor="#ffffff"
-        backgroundColor="#1A1A1A"
-        onClick={() => router.push("/")}
-      />
+      {type === "return" && (
+        <div className={styles.review}>
+          <TextGothic
+            text="대여 후기"
+            fontWeight={700}
+            fontSize={16}
+            lineHeight={24}
+            style={{
+              display: "block",
+              marginBottom: "16px",
+            }}
+          />
+          <div className={styles.inputBox}>
+            <input
+              value={value}
+              onChange={setValue ? (e) => setValue(e.target.value) : () => {}}
+              placeholder="다음 사람들을 위해 후기를 남겨주세요."
+            />
+          </div>
+        </div>
+      )}
+      {type === "rental" && (
+        <div className={styles.buttonBox}>
+          <Button
+            text="메인으로 돌아가기"
+            textColor="#ffffff"
+            backgroundColor="#1A1A1A"
+            onClick={() => router.push("/")}
+          />
+        </div>
+      )}
+      {type === "return" && (
+        <div className={styles.buttonBox}>
+          <Button
+            text="취소하기"
+            textColor="#1A1A1A"
+            backgroundColor="#ffffff"
+            borderColor="#EDEDED"
+            onClick={() => router.back()}
+          />
+          <Button
+            text="반납하기"
+            textColor="#ffffff"
+            backgroundColor="#1A1A1A"
+            onClick={onSubmit ? onSubmit : () => {}}
+          />
+        </div>
+      )}
     </div>
   );
 }
